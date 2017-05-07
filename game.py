@@ -15,11 +15,31 @@ Scorestring="Score: %s" %score
 score_p.write(Scorestring,False,align="left")
 score_p.hideturtle()
 
+##################################################
 
+# maintaing high score
 highscore=0
+hscore_p=turtle.Turtle()
+hscore_p.speed(0)
+hscore_p.color("white")
+hscore_p.penup()
+hscore_p.setposition(-290,260)
+hScorestring="High Score: %s" %highscore
+hscore_p.write(hScorestring,False,align="left")
+hscore_p.hideturtle()
+
+#############################################
+
+
+#Screen Of The game
 screen=turtle.Screen()
 screen.bgcolor("brown")
+#screen.bgpic("giphy.gif")
 screen.title("My First Game")
+############################################
+
+
+# Gaming region	
 pen1=turtle.Turtle()
 pen1.speed(0)
 pen1.penup()
@@ -31,6 +51,13 @@ for i in range(4):
 	pen1.fd(600)
 	pen1.lt(90)
 pen1.hideturtle()
+############################################
+
+# Registering an image
+turtle.register_shape("player.gif")
+
+#############################################
+
 # Now draw the player pen
 penp=turtle.Turtle()
 penp.pensize(3)
@@ -41,8 +68,10 @@ penp.speed(0)
 penp.setposition(0,-250)
 penp.setheading(90)
 playerspeed=10
+ 
+###############################################
 
-#bullte turtle
+#bullet turtle
 bullet=turtle.Turtle()
 bullet.shape("triangle")
 bullet.color("yellow")
@@ -53,32 +82,31 @@ bullet.setheading(90)
 bulletspeed=20
 state=0
 bullet.hideturtle()
-def fire():
+################################################
+
+#All the important functions
+
+def fire():#When bullet is fired
 	global state
 	if state ==0:
 		state=1
 		bullet.setposition(penp.xcor(),penp.ycor())
 		bullet.showturtle()
 			
-			
-
-
-
-
 #Move player
-def ml():
+def ml():#Move left
 	x=penp.xcor()
 	x-=playerspeed
 	if x < -290:
 		x=-290
 	penp.setx(x)
-def mr():
+def mr():#Move right
 	x=penp.xcor()
 	x+=playerspeed
 	if x > 290:
 		x=290
 	penp.setx(x)
-def collision(t1,t2):
+def collision(t1,t2):#check collision
 	dis=math.sqrt((math.pow(t1.xcor()-t2.xcor(),2))+math.pow(t2.ycor()-t1.ycor(),2))
 	if dis <= 15:
 		return True
@@ -88,10 +116,10 @@ turtle.onkey(ml,"Left")
 turtle.onkey(mr,"Right")
 turtle.onkey(fire,"space")
 
-	
+##############################################################
 
 #CPU turtles
-n=5
+n=int(raw_input("Enter The Number Of Enemies You Want?"))
 enemies=[]
 for i in range(n):
 	enemies.append(turtle.Turtle())
@@ -105,8 +133,9 @@ for pene in enemies:
 	pene.speed(0)
 	pene.setposition(x,y)
 enemyspeed=2
+##################################################
 
-#Move enemy
+#Main Loop
 while 1:
 	for pene in enemies:
 		x=pene.xcor()
@@ -134,6 +163,8 @@ while 1:
 	for pene in enemies:
 		if (collision(bullet,pene)):
 			score+=100
+			if highscore < score:
+				highscore=score
 			bullet.hideturtle()
 			bullet.setposition(0,-400)
 			pene.setposition(-200,250)
@@ -141,13 +172,16 @@ while 1:
 			Scorestring="Score: %s" %score
 			score_p.clear()
 			score_p.write(Scorestring,False,align="left")
+			hScorestring="High Score: %s" %highscore
+			hscore_p.clear()
+			hscore_p.write(hScorestring,False,align="left")
 		if (collision(penp,pene)):
 			penp.hideturtle()
 			pene.hideturtle()
 			print "Game Over"
 			break
 
-
+####################################################################
 
 # Keep the o/p stable
 delay=raw_input("Press Enter to Esc")
