@@ -64,7 +64,7 @@ mccabe==0.6.1
 munkres3==1.0.5.5
 mypy-lang==0.4.6
 nbformat==4.3.0
-nltk==3.2.2
+nltk==3.4.5
 oauth==1.0.1
 oauthlib==2.0.1
 onboard==1.4.1
