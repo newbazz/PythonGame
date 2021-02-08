@@ -39,7 +39,7 @@ guacamole==0.9.2
 guess-language-spirit==0.5.3
 html-linter==0.3.0
 html5lib==0.999999999
-httplib2==0.9.2
+httplib2==0.19.0
 idna==2.2
 imagesize==0.7.1
 ipython-genutils==0.2.0
